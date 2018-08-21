@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = new Intent(this, SecondActivity.class);
 
-        if (!val1str.equals("") && !val2str.equals("")) {
+        if (numChecker(val1str) && numChecker(val2str)) {
             Double val1 = Double.valueOf(val1str);
             Double val2 = Double.valueOf(val2str);
             if (v.getId() == R.id.buttonAdd) {
@@ -69,6 +70,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else {
             showAlertDialog();
+        }
+    }
+
+    private boolean numChecker(String val){
+        // 入力された値がDoubleに変換可能か？
+        try{
+            Double.valueOf(val);
+            return true;
+        }catch(NumberFormatException nfe){
+            Log.d("NUM-CHECKER", "例外発生");
+            return  false;
         }
     }
 
